@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.0
   cupertino_icons: ^1.0.6
+  carousel_slider: ^4.2.1
+  flutter_svg: ^2.0.0
 flutter_native_splash:
   color: "#FFB755"
   image: assets/images/common/logo.png
