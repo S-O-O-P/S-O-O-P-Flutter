@@ -2,13 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:linkbee/const/colors.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 Widget honeyPotListItem(List list){
   return CarouselSlider(
     items: list.map((item) {
       return Builder(
         builder: (context) {
-          return Container(
+          return
+          // return GestureDetector(
+          //     onTap: () async {
+          //   final url = 'http://localhost:3001';
+          //   if (await canLaunch(url)) {
+          // await launch(url);
+          // } else {
+          // throw 'Could not launch $url';
+          // }
+          // },child:
+             Container(
             margin: EdgeInsets.all(10.0),
             child: Row(
               children: [
@@ -272,7 +283,7 @@ Widget honeyPotListItem(List list){
 
     //Slider Container properties
     options: CarouselOptions(
-      height: 240.0,
+      height: 220.0,
       autoPlay: true,
       aspectRatio: 16 / 9,
       autoPlayCurve: Curves.fastOutSlowIn,

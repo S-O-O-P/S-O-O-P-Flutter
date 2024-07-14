@@ -19,8 +19,8 @@ Future<List<dynamic>?> getCultureInfoRequest() async {
     'MsgBody': '',
     'cPage': '1',
     'rows': '50', // 1페이지에 불러올 데이터 갯수
-    'from': '20240714', // 시작일
-    'to': '20240715' // 종료일
+    'from': '20240715', // 시작일
+    'to': '20240719' // 종료일
   };
 
   final uri = Uri.parse(url).replace(queryParameters: queryParams);

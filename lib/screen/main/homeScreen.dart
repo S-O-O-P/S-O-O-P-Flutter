@@ -25,17 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<dynamic> earlyBirdList = [];
   List<dynamic> honeyList = [];
-  // Map<String, dynamic> foundEarlyInfo = {};
-
-  List earlyImageList = [
-    "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/ck3S/image/6wW3rm9SeiAdNC4iXCnEPkhEc4A.PNG",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTmsWrmDdVV_xKtEPxKaXfa_sGr7ab0lKRRA&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIvb95UFMPgATAt9wZvq4xgZOag1iH0rnGRJsqCi_VJq-rXRvqgcLKKrZ-YSaK22PK01M&usqp=CAU",
-    "https://pbs.twimg.com/media/FWfE9ULaQAAZqaB.jpg:large",
-    "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/eiZd/image/WK5bu4dZ3NBYy3e0NZduoMH3yZM.JPG",
-  ];
-
   List pickList=[];
+  // Map<String, dynamic> foundEarlyInfo = {};
 
   @override
   void initState() {
@@ -68,25 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
     earlyData(); // earlyData 호출
     honeyData(); // honeyData 호출
   }
-
-  // 공공 api 호출
-  // void pickData() async {
-  //   final data = await getCultureInfoRequest();
-  //   if (data != null) {
-  //     // data를 사용하여 필요한 작업을 수행
-  //     print('Fetched Data: $data');
-  //     for (var item in data) {
-  //       pickList.add({
-  //         'seq': item['seq'],
-  //         'thumbnail': item['thumbnail'],
-  //       });
-  //     }
-  //     // print('PickList Data: $pickList');
-  //     print('PickList Data: ${pickList[0]['thumbnail']}');
-  //   } else {
-  //     print('Failed to fetch data.');
-  //   }
-  // }
 
   // 얼리버드 공연/전시 정보 불러오기
   void earlyData() async {
