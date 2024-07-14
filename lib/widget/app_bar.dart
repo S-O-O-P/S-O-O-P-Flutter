@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linkbee/apis/cs/noticeScreen.dart';
-import 'package:linkbee/apis/main/homeScreen.dart';
+// import 'package:linkbee/apis/main/homeScreen.dart';
 import '../const/colors.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,6 +10,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: white,
+      centerTitle: true,
       leading: Builder(
         builder: (BuildContext context) {
           return InkWell(
@@ -27,32 +28,21 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           );
         },
       ),
-      actions: [
-        // IconButton(
-        //   icon: Icon(
-        //     Icons.search_outlined,
-        //     color: mainColor,
-        //   ),
-        //   onPressed: () {
-        //     // Navigator.of(context).push(MaterialPageRoute(
-        //     //   builder: (context) => const Info(),
-        //     // ));
-        //   },
-        // ), // 검색 아이콘 버튼
-        Builder(
-          builder: (context) {
-            return IconButton(
-              icon: Icon(
-                Icons.info_outline,
-                color: mainColor,
-              ),
-              onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/notice');
-              },
-            );
-          }
-        ),
-      ],
+      // actions: [
+      //   Builder(
+      //     builder: (context) {
+      //       return IconButton(
+      //         icon: Icon(
+      //           Icons.info_outline,
+      //           color: mainColor,
+      //         ),
+      //         onPressed: () {
+      //           Navigator.of(context).pushReplacementNamed('/notice');
+      //         },
+      //       );
+      //     }
+      //   ),
+      // ],
     );
   }
 

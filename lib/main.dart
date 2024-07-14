@@ -7,7 +7,7 @@ import 'package:linkbee/screen/honeypot/honeypotScreen.dart';
 import 'package:linkbee/screen/login/loginScreen.dart';
 import 'package:linkbee/screen/main/homeScreen.dart';
 import 'package:linkbee/screen/mypage/myPage.dart';
-import 'package:linkbee/screen/splashScreen.dart';
+import 'package:linkbee/screen/splash_screen.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

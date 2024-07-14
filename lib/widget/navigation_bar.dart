@@ -17,9 +17,10 @@ Widget bottomNavigator(BuildContext context, int? currentIndex){
         Navigator.of(context).pushReplacementNamed('/cultureInfo');
       }else if(index == 2){ // horoscope
         Navigator.of(context).pushReplacementNamed('/honeypot');
-      }else if(index == 3){ // favorites
-        Navigator.of(context).pushReplacementNamed('/mypage');
       }
+      // else if(index == 3){ // favorites
+      //   Navigator.of(context).pushReplacementNamed('/mypage');
+      // }
     },
     selectedIndex: currentIndex!,
     destinations: <Widget>[
@@ -57,16 +58,16 @@ Widget bottomNavigator(BuildContext context, int? currentIndex){
         label: '허니팟',
 
       ),
-      NavigationDestination(
-        icon: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image(image: AssetImage(currentIndex == 3 ? 'assets/images/common/icon_user_active.png' : 'assets/images/common/icon_user_inactive.png'), width: 28, height: 28,),
-            Text('마이', style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 10),)
-          ],),
-        label: '',
-      ),
+      // NavigationDestination(
+      //   icon: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     crossAxisAlignment: CrossAxisAlignment.center,
+      //     children: [
+      //       Image(image: AssetImage(currentIndex == 3 ? 'assets/images/common/icon_user_active.png' : 'assets/images/common/icon_user_inactive.png'), width: 28, height: 28,),
+      //       Text('마이', style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 10),)
+      //     ],),
+      //   label: '',
+      // ),
     ],
   );
 }
