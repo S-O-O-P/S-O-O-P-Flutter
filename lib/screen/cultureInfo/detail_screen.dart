@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:linkbee/apis/cultureInfo/culture_detail_info_api.dart';
 import 'package:linkbee/const/colors.dart';
 import 'package:linkbee/widget/app_bar.dart';
 import 'package:linkbee/widget/navigation_bar.dart';
 
 class DetailScreen extends StatefulWidget {
-  final int seq;
+  final String seq;
   const DetailScreen({required this.seq, Key ? key}) : super(key: key);
 
   @override
@@ -13,20 +14,44 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   final int currentPage = 1;
+  Map<String, dynamic> detailInfo={};
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      final data = await getCultureDetailInfoRequest(widget.seq);
+      if (data != null) {
+        Map<String, dynamic> tempPickList = {};
+        // for (var item in data) {
+        //   tempPickList.add({
+        //     "thumbnail": item["thumbnail"],
+        //     "area": item["area"],
+        //     "title": item["title"],
+        //     "place": item["place"],
+        //     "startDate": item["startDate"],
+        //     "endDate": item["endDate"],
+        //     "seq": widget.seq,
+        //   });
+        // }
+        setState(() {
+          detailInfo = tempPickList; // pickList 업데이트
+          print('detailInfo :'+ data.toString());
+        });
+      } else {
+        print('Failed to fetch data.');
+      }
+    } catch (error) {
+      print('Error fetching data: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // 임의의 item 데이터를 예시로 사용
-    final Map<String, dynamic> item = {
-      "thumbnail": "https://example.com/image.jpg",
-      "area": "Seoul",
-      "title": "Example Title",
-      "place": "Example Place",
-      "startDate": "2023-01-01",
-      "endDate": "2023-12-31",
-      "seq": widget.seq,
-    };
-
     return Scaffold(
         appBar: MainAppBar(),
         bottomNavigationBar: bottomNavigator(context, currentPage),
@@ -37,7 +62,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 width: double.infinity,
                 height: 300.0,
                 child: Image.network(
-                  item["thumbnail"],
+                  detailInfo?["thumbnail"] ?? "",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -48,7 +73,8 @@ class _DetailScreenState extends State<DetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '제목',
+                      detailInfo?["title"] ?? "",
+                      //detailInfo?["title"].replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll("&#39;", "'")
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
@@ -59,7 +85,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     SizedBox(height: 8.0),
                     Text(
-                      '여기에 상세 설명이 들어갑니다.',
+                      detailInfo?["price"] ?? "가격 정보가 없습니다.",
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!

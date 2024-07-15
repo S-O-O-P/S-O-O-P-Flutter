@@ -112,6 +112,6 @@ Widget cultureInfoItem(BuildContext context, BoxConstraints constraints, item) {
           width: 20.0,
         ),
       ],
-    ),
+    ),)
   );
 }
