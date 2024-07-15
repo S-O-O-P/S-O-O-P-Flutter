@@ -16,15 +16,39 @@ class CultureInfoScreen extends StatefulWidget {
 
 class _CultureInfoScreenState extends State<CultureInfoScreen> {
   final int currentPage = 1;
+  final TextEditingController _searchController = TextEditingController();
 
-  List<dynamic> earlyBirdList = [];
   List cultureList = [];
+  List filteredCultureList = [];
+  bool isSearching = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchData();
+    filteredCultureList = cultureList;
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _filterCultureList(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        filteredCultureList = cultureList;
+        isSearching = false;
+      });
+    } else {
+      setState(() {
+        filteredCultureList = cultureList.where((item) =>
+            item['title'].toLowerCase().contains(query.toLowerCase())
+        ).toList();
+        isSearching = true;
+      });
+    }
   }
 
   void fetchData() async {
@@ -40,18 +64,6 @@ class _CultureInfoScreenState extends State<CultureInfoScreen> {
     } catch (error) {
       print('Error fetching data: $error');
     }
-
-    earlyData(); // earlyData 호출
-  }
-
-  // 얼리버드 공연/전시 정보 불러오기
-  void earlyData() async {
-    List<dynamic> allEarlyBirds = await selectAllEarlyBirdInfo();
-    debugPrint("earlyData : ${allEarlyBirds}");
-    setState(() {
-      earlyBirdList = allEarlyBirds;
-    });
-    debugPrint("earlyList : ${earlyBirdList}");
   }
 
   @override
@@ -60,28 +72,95 @@ class _CultureInfoScreenState extends State<CultureInfoScreen> {
       appBar: MainAppBar(),
       bottomNavigationBar: bottomNavigator(context, currentPage),
       body: SafeArea(
-        child: SingleChildScrollView(
-            child: cultureList == null
-                ? LoadingPage()
-                : Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: mainColor,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-                    child: Column(
-                      children: [
-                        LayoutBuilder(builder: (context, snapshot) {
-                          return Column(
-                            children: [
-                              cultureInfoList(
-                              context, snapshot, cultureList)
-                            ],
-                          );
-                        }),
-                      ],
+          child: Container(
+        color: mainColor,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 16.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    children:[
+                      Container(
+                      height:48,
+                      width: MediaQuery.of(context).size.width - 40,
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: '검색어를 입력하세요',
+                          hintStyle: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            color: mainColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          fillColor: Colors.white,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(48.0),
+                            borderSide: BorderSide(color: mainColor)
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(48.0),
+                            borderSide: BorderSide(color: mainColor), // 기본 상태의 border 컬러
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(48.0),
+                            borderSide: BorderSide(color: pointColor), // focus 상태의 border 컬러
+                          ),
+                          contentPadding: EdgeInsets.symmetric(vertical: 26.0, horizontal: 14.0),
+                        ),
+                        // onChanged: (value){
+                        //   _filterCultureList(value);
+                        // },
+                      ),
                     ),
-                  )),
-      ),
+                  Positioned(
+                    right: 0.0,
+                    child: IconButton(
+                      icon: Icon(Icons.search, color: mainColor,),
+                      onPressed: () {
+                        _filterCultureList(_searchController.text);
+                      },
+                    ),
+                  ),
+                ],
+                      ),
+                  ]),
+
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
+            Expanded(
+              child: cultureList.isEmpty
+                  ? LoadingPage()
+                  : isSearching && filteredCultureList.isEmpty
+                  ? Center(child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('[${_searchController.text}]', style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                                      color: white,
+                                      fontWeight: FontWeight.w700,
+                                    ),),
+                      SizedBox(width: 6.0,),
+                      Text('검색 결과가 없습니다', style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: white,
+                        fontWeight: FontWeight.w500,
+                      ),),
+                    ],
+                  ))
+                  : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: cultureInfoList(context, BoxConstraints(), filteredCultureList),
+                  ),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

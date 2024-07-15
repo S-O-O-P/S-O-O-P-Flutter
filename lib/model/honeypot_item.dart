@@ -2,24 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:linkbee/const/colors.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-Widget honeyPotListItem(List list){
+Widget honeyPotListItemSlide(List list){
   return CarouselSlider(
     items: list.map((item) {
       return Builder(
         builder: (context) {
-          return
-          // return GestureDetector(
-          //     onTap: () async {
-          //   final url = 'http://localhost:3001';
-          //   if (await canLaunch(url)) {
-          // await launch(url);
-          // } else {
-          // throw 'Could not launch $url';
-          // }
-          // },child:
-             Container(
+          return GestureDetector(
+              onTap: () async {
+            final url = Uri.parse('http://localhost:3001/login');
+            if (await canLaunchUrl(url)) {
+          await launchUrl(url);
+          } else {
+          throw 'Could not launch $url';
+          }
+          },child: Container(
             margin: EdgeInsets.all(10.0),
             child: Row(
               children: [
@@ -31,9 +29,8 @@ Widget honeyPotListItem(List list){
                         borderRadius:
                         BorderRadius.circular(20.0)),
                     child: Container(
-                      width: 120,
-                      // margin: EdgeInsets.symmetric(
-                      //     vertical: 6.0, horizontal: 10.0),
+                      width: 130,
+                      height: 180,
                       decoration: BoxDecoration(
                         borderRadius:
                         BorderRadius.circular(8.0),
@@ -47,7 +44,7 @@ Widget honeyPotListItem(List list){
                   ),
                   Positioned(
                     top: 14.0,
-                    right: -6.0,
+                    right: -4.0,
                     child: Container(
                       child: Column(
                         children: List.generate(7, (index) {
@@ -75,7 +72,8 @@ Widget honeyPotListItem(List list){
 
                 Container(
                   width:
-                  MediaQuery.sizeOf(context).width - 160,
+                  MediaQuery.sizeOf(context).width - 170,
+                  height: 200,
                   padding: EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
                       color: white,
@@ -260,7 +258,7 @@ Widget honeyPotListItem(List list){
                         ],
                       ), // 참여인원
                       SizedBox(
-                        height: 20.0,
+                        height: 12.0,
                       ),
                       // 모집 마감 기간
                       Text(
@@ -276,14 +274,15 @@ Widget honeyPotListItem(List list){
                 ), // 허니팟 텍스트 영역
               ],
             ),
+          ),
           );
-        },
+          },
       );
     }).toList(),
 
     //Slider Container properties
     options: CarouselOptions(
-      height: 220.0,
+      height: 240.0,
       autoPlay: true,
       aspectRatio: 16 / 9,
       autoPlayCurve: Curves.fastOutSlowIn,

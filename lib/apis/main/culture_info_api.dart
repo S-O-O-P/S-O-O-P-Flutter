@@ -18,9 +18,9 @@ Future<List<dynamic>?> getCultureInfoRequest() async {
     'CallBackURI': '',
     'MsgBody': '',
     'cPage': '1',
-    'rows': '50', // 1페이지에 불러올 데이터 갯수
-    'from': '20240715', // 시작일
-    'to': '20240719' // 종료일
+    'rows': '10', // 1페이지에 불러올 데이터 갯수
+    'from': '20240716', // 시작일
+    'to': '20240718' // 종료일
   };
 
   final uri = Uri.parse(url).replace(queryParameters: queryParams);
@@ -36,13 +36,13 @@ Future<List<dynamic>?> getCultureInfoRequest() async {
       final xmlText = utf8.decode(response.bodyBytes);
       final xmlDom = XmlDocument.parse(xmlText); // XML 문자열을 XML DOM 객체로 변환
       final jsonData = xmlToJson(xmlDom); // XML 데이터를 JSON 형식으로 변환
-      debugPrint('from CultureApi: ${jsonData}');
+      // debugPrint('from CultureApi: ${jsonData}');
       // perforList만 추출하여 반환
       final perforList = jsonData['response']['msgBody'][0]['perforList'];
       return perforList;
     } else {
       // 오류 처리
-      debugPrint('Network response was not ok ${response.reasonPhrase}');
+      // debugPrint('Network response was not ok ${response.reasonPhrase}');
       return null;
     }
   } catch (e) {
