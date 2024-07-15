@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linkbee/widget/appbar.dart';
-import 'package:linkbee/widget/navigationbar.dart';
+import 'package:linkbee/widget/app_bar.dart';
+import 'package:linkbee/widget/navigation_bar.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
