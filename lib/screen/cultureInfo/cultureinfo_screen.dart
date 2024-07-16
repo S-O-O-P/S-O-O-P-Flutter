@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linkbee/apis/main/culture_info_api.dart';
-import 'package:linkbee/apis/main/early_bird_api.dart';
 import 'package:linkbee/const/colors.dart';
 import 'package:linkbee/model/cultureinfo_item.dart';
+import 'package:linkbee/screen/splash_screen.dart';
 import 'package:linkbee/widget/app_bar.dart';
-import 'package:linkbee/widget/loading_page.dart';
 import 'package:linkbee/widget/navigation_bar.dart';
 
 class CultureInfoScreen extends StatefulWidget {
@@ -26,7 +25,6 @@ class _CultureInfoScreenState extends State<CultureInfoScreen> {
   void initState() {
     super.initState();
     fetchData();
-    filteredCultureList = cultureList;
   }
 
   @override
@@ -56,7 +54,8 @@ class _CultureInfoScreenState extends State<CultureInfoScreen> {
       final data = await getCultureInfoRequest();
       if (data != null) {
         setState(() {
-          cultureList = data; // cultureList 업데이트
+          cultureList = data;
+          filteredCultureList = data; // filteredCultureList도 같이 업데이트
         });
       } else {
         print('Failed to fetch data.');
@@ -137,7 +136,7 @@ class _CultureInfoScreenState extends State<CultureInfoScreen> {
             ),
             Expanded(
               child: cultureList.isEmpty
-                  ? LoadingPage()
+                  ? const SplashScreen()
                   : isSearching && filteredCultureList.isEmpty
                   ? Center(child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

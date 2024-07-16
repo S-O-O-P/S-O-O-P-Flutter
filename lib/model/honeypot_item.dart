@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:linkbee/const/colors.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:linkbee/screen/web_view_screen.dart';
+
 
 Widget honeyPotListItemSlide(List list){
   return CarouselSlider(
@@ -10,13 +11,12 @@ Widget honeyPotListItemSlide(List list){
       return Builder(
         builder: (context) {
           return GestureDetector(
-            onTap: () async {
-              final url = Uri.parse('http://192.168.0.17:3001/login');
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url);
-              } else {
-                throw 'Could not launch $url';
-              }
+            onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => WebViewScreen(url: "http://localhost:3001/login"),
+                  ),
+                );
             },child: Container(
             margin: EdgeInsets.all(10.0),
             child: Row(

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:linkbee/apis/cultureInfo/culture_detail_info_api.dart';
 import 'package:linkbee/const/colors.dart';
+import 'package:linkbee/screen/splash_screen.dart';
 import 'package:linkbee/widget/app_bar.dart';
 import 'package:linkbee/widget/loading_page.dart';
 import 'package:linkbee/widget/navigation_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatefulWidget {
-  final String seq;
+  final dynamic seq;
   const DetailScreen({required this.seq, Key ? key}) : super(key: key);
 
   @override
@@ -37,25 +38,18 @@ class _DetailScreenState extends State<DetailScreen> {
   void fetchData() async {
     try {
       final data = await getCultureDetailInfoRequest(widget.seq);
+      print('Raw API response: $data');
       if (data != null) {
         print('data from detail screen : $data');
         setState(() {
-          detailInfo = {
-            "imgUrl": data[0]["imgUrl"],
-            "area": data[0]["area"],
-            "title": data[0]["title"],
-            "place": data[0]["place"],
-            "price": data[0]["price"],
-            "startDate": data[0]["startDate"],
-            "endDate": data[0]["endDate"],
-            "placeUrl":data[0]["placeUrl"],
-            "placeAddr":data[0]["placeAddr"],
-            "phone":data[0]["phone"],
-            "seq": data[0]["seq"],
-            "url":data[0]["url"] // 추가 정보
-          };
-          print('detailInfo : $detailInfo');
+          if (data is List && data.isNotEmpty) {
+            // 리스트인 경우 첫 번째 항목 사용
+            detailInfo = Map<String, dynamic>.from(data[0]);
+          } else {
+            print('Unexpected data format or empty list');
+          }
         });
+        print('detailInfo : $detailInfo');
       } else {
         print('Failed to fetch data.');
       }
@@ -77,7 +71,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   width: double.infinity,
                   height: 300.0,
                   child: detailInfo["imgUrl"].isEmpty
-                    ? LoadingPage()
+                    ? SplashScreen()
                     : Image.network(
                       detailInfo["imgUrl"],
                       fit: BoxFit.cover,
@@ -373,7 +367,8 @@ class _DetailScreenState extends State<DetailScreen> {
                               width: MediaQuery.of(context).size.width - 140,
                               padding: EdgeInsets.only(top: 6.0),
                               child: Text(
-                                detailInfo["url"],
+                                // detailInfo["url"]?.toString(),
+                                "수정중",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!

@@ -19,7 +19,7 @@ Future<List<dynamic>?> getCultureInfoRequest() async {
     'MsgBody': '',
     'cPage': '1',
     'rows': '10', // 1페이지에 불러올 데이터 갯수
-    'from': '20240716', // 시작일
+    'from': '20240718', // 시작일
     'to': '20240718' // 종료일
   };
 

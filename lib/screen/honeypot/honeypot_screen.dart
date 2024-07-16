@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:linkbee/apis/main/honeypot_api.dart';
-import 'package:linkbee/const/colors.dart';
 import 'package:linkbee/model/honeypot_list_item.dart';
+import 'package:linkbee/screen/splash_screen.dart';
 import 'package:linkbee/widget/app_bar.dart';
-import 'package:linkbee/widget/loading_page.dart';
 import 'package:linkbee/widget/navigation_bar.dart';
 
 class HoneypotScreen extends StatefulWidget {
@@ -48,7 +47,7 @@ class _HoneypotScreenState extends State<HoneypotScreen> {
         child: Container(
           // color: mainColor,
           child:honeyList.isEmpty
-              ? LoadingPage()
+              ? const SplashScreen()
               : honeyPotListItem(context, honeyList),
         )
       ),
