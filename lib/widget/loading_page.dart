@@ -26,22 +26,23 @@ class _LoadingPageState extends State<LoadingPage> {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                   color: white,
                   borderRadius:
                   BorderRadius.circular(120.0)),
-              child: Container(
-                width: 120,
-                // margin: EdgeInsets.symmetric(
-                //     vertical: 6.0, horizontal: 10.0),
-                decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.circular(120.0),
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/common/logo.png"),
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter
+              child: Center(
+                child: Container(
+                  width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.circular(120.0),
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/common/logo.png"),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter
+                    ),
                   ),
                 ),
               ),
