@@ -20,7 +20,6 @@ Future<List<dynamic>> selectAllHoneypot() async {
         item['eventDay'] = weekday;
         return item;
       }).toList();
-      print("honeypot list : $filteredValidList");
 
       return filteredValidList;
     } else {

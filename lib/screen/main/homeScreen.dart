@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:linkbee/apis/main/culture_info_api.dart';
 import 'package:linkbee/apis/main/early_bird_api.dart';
@@ -178,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    honeyPotListItem(honeyList),
+                    honeyPotListItemSlide(honeyList),
                     SizedBox(
                       height: 20,
                     ),
